@@ -29,6 +29,7 @@ public EmployeeController(EmployeeService employeeService) {
     // Read all
     @GetMapping
     public List<Employee> getAllEmployees() {
+        System.out.println("Fetching all employees");
          return employeeService.getAllEmployees();
     } 
 }

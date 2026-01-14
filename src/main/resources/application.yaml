@@ -1,0 +1,25 @@
+spring:
+  security:
+    oauth2:
+      resourceServer:
+        jwt:
+          issuer-uri: https://dev-sandeep-secure.us.auth0.com/
+          audience: https://sandeep-secure-resource-endpoint/    
+
+
+
+      # Uncomment the following section to enable OAuth2 client configuration
+      # client:
+      #   registration:
+      #     google:
+      #       client-id: your-google-client-id
+      #       client-secret: your-google-client-secret
+      #       scope:
+      #         - email
+      #         - profile
+      #   provider:
+      #     google:
+      #       authorization-uri: https://accounts.google.com/o/oauth2/auth
+      #       token-uri: https://oauth2.googleapis.com/token
+      #       user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+      #       user-name-attribute: sub
