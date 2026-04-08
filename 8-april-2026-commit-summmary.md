@@ -42,3 +42,10 @@ But /api/employees → JWT required ❌
 ✅ Solution (Production Way)
 
 👉 Swagger me JWT token attach karna padega
+
+@Configuration
+@EnableMethodSecurity ka use krte hua ek file bnayi SwaggerConfig.java and usme config likha
+is se swagger ui pr authorize ka button aaya and humare netwrok tab se token copy kr k udr
+swagger ui me authorize wale butoon pr click kr k token daal k close kiya then api endpoint 
+execute kiya result aa gaya.
+note: only token dalna he authorize k button click wale popup me  Bearer nahi.
