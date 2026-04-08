@@ -49,3 +49,8 @@ is se swagger ui pr authorize ka button aaya and humare netwrok tab se token cop
 swagger ui me authorize wale butoon pr click kr k token daal k close kiya then api endpoint 
 execute kiya result aa gaya.
 note: only token dalna he authorize k button click wale popup me  Bearer nahi.
+
+*******************************
+App start pr swagger auto open ho jaye iske lie code
+commented wale scanrio nahi chle, last wala chla 
+ye only window k liye applicable he.
