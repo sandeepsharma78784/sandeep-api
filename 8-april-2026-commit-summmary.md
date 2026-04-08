@@ -36,3 +36,9 @@ but swagger se application wale endpoipnts access nahi kr paa rahe he , kyyuki v
 uske liye swagger se token paas krna pdega ya swagger se vo application wale endpoint ko bina token k alllow krna pdega.
 *******************************
 issue: swagger se appplication k endpoint access nahi kr paa rahe he 
+ab Swagger open ho raha hai, but Swagger se API call (like /api/employees) fail ho raha hai.
+Swagger UI → open ✅
+But /api/employees → JWT required ❌
+✅ Solution (Production Way)
+
+👉 Swagger me JWT token attach karna padega
