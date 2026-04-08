@@ -27,7 +27,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             // .requestMatchers("/public/**").permitAll()
             // .requestMatchers("/api/**").authenticated()  //anyrequest.authenticated() conver kr lega explicitly likhne ki jarurat nhi hai.
-             .requestMatchers("/public/**").permitAll()
+             .requestMatchers("/public/**","/swagger-ui/**","/swagger-ui.html", "/v3/api-docs/**").permitAll()
             // https://domain:port/public/... yeh sab access hoga bina authentication ke
 
             //  abki saare endopints ke liye authentication jaruri hai and token aana chahiye request me
