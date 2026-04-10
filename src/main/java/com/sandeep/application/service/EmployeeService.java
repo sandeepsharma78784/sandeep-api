@@ -11,6 +11,8 @@ import com.sandeep.application.model.EmployeeDetailsResponse;
 import com.sandeep.application.repository.EmployeeRepository;
 import org.springframework.http.HttpMethod;
 import org.springframework.core.ParameterizedTypeReference;
+import com.sandeep.application.model.ThirdPartyUser;
+import java.util.Collections;
 @Service
 public class EmployeeService {
 
@@ -108,5 +110,26 @@ System.out.println("Employee details from external service: " + response);
 
 return response;
 
+}
+
+public List<ThirdPartyUser> getExternalUsers() {
+
+    List<ThirdPartyUser> users = restClientService.sendRequest(
+            "https://jsonplaceholder.typicode.com/users",
+            HttpMethod.GET,
+            null,
+            Collections.emptyMap(),   // headers
+            Collections.emptyMap(),   // path params
+            Collections.emptyMap(),   // query params
+            new ParameterizedTypeReference<List<ThirdPartyUser>>() {}
+    );
+
+    if(users != null) {
+        System.out.println("External users: " + users);
+        users.forEach(user -> System.out.println("User: " + user.getName() + ", Email: " + user.getEmail()));
+    } else {
+        System.out.println("Failed to fetch external users.");
+    }
+    return users != null ? users : Collections.emptyList();
 }
 }

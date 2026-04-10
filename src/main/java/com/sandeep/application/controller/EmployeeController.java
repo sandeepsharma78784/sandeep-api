@@ -10,6 +10,8 @@ import com.sandeep.application.model.Employee;
 import com.sandeep.application.model.EmployeeDetails;
 import com.sandeep.application.service.EmployeeService;
 
+import com.sandeep.application.model.ThirdPartyUser;
+
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
@@ -49,4 +51,10 @@ public EmployeeController(EmployeeService employeeService) {
         
          return employeeService.getAllEmployees();
     } 
+
+    @GetMapping("/external")
+    public List<ThirdPartyUser> getAllThirdPartyUsers(){
+        // call third party api
+        return employeeService.getExternalUsers();
+    }
 }
