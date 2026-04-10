@@ -12,6 +12,8 @@ import com.sandeep.application.service.EmployeeService;
 
 import com.sandeep.application.model.ThirdPartyUser;
 
+import com.sandeep.application.dto.APIResponseFormat;
+
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
@@ -52,9 +54,13 @@ public EmployeeController(EmployeeService employeeService) {
          return employeeService.getAllEmployees();
     } 
 
+    // @GetMapping("/external", produces = "application/json")
     @GetMapping("/external")
-    public List<ThirdPartyUser> getAllThirdPartyUsers(){
+    public ResponseEntity<APIResponseFormat<List<ThirdPartyUser>>> getAllThirdPartyUsers(){
         // call third party api
-        return employeeService.getExternalUsers();
+        List<ThirdPartyUser> thirdPartyUsers = employeeService.getExternalUsers();
+         return ResponseEntity.ok(
+            new APIResponseFormat<>(200, "Users fetched successfully", thirdPartyUsers, null)
+        );
     }
 }
