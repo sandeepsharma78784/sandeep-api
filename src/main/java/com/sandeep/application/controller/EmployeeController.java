@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.sandeep.application.model.Employee;
+import com.sandeep.application.model.EmployeeDetails;
 import com.sandeep.application.service.EmployeeService;
 
 @RestController
@@ -30,9 +31,22 @@ public EmployeeController(EmployeeService employeeService) {
     @GetMapping
     public List<Employee> getAllEmployees() {
         System.out.println("Fetching all employees");
-        employeeService.getEmployeeDetailsFromExternalService(); // just to test the external call
-        // testing k liye abhi is ms ki list call me dusri ms ki 
-        // getEmployeeDetails wala endpoint call kiya he
+        /*
+        List<EmployeeDetails> employeeDetailsList = employeeService.getEmployeeDetailsListFromExternalService();
+        if(employeeDetailsList == null || employeeDetailsList.isEmpty()) {
+            System.out.println("No employee details found from external service.");
+        } else {
+            System.out.println("Employee details fetched from external service:");
+            employeeDetailsList.forEach(emp -> System.out.println("Employee Details: " + emp.getEmpId() + ", " + emp.getFamilyName() + ", " + emp.getHike()));
+        }
+        */
+         /* just to test the external call
+        testing k liye abhi is ms ki list call me dusri ms ki 
+        getEmployeeDetails wala endpoint call kiya he */
+       EmployeeDetails employeeDetails = employeeService.getEmployeeDetailsFromExternalService();
+       System.out.println("Fetched Employee Details: " + employeeDetails.getEmpId() + ", " + employeeDetails.getFamilyName() + ", " + employeeDetails.getHike());
+        
+        
          return employeeService.getAllEmployees();
     } 
 }

@@ -20,8 +20,12 @@ private Long id;
 private String empId;
 private String familyName;
 private Double hike;
-
-
+/*
+maan lo
+private String department; maan lo ye db side se nahi aa raha he and hum db resonse ko EmployeeDetails me s
+serialize krna chahte he to is field ko ignore krna padega during serialization and deserialization
+iske liye automatic null set ho jayega jab bhi db se response aayega aur jab bhi hum EmployeeDetails ka object banayenge to is field ko set nahi karenge to ye null hi rhega
+*/
 // default constructor
 public EmployeeDetails() {}
 public EmployeeDetails(String empId, String familyName, Double hike) {

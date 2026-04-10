@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.springframework.stereotype.Service;
 import com.sandeep.application.model.Employee;
 import com.sandeep.application.model.EmployeeDetails;
+import com.sandeep.application.model.EmployeeDetailsResponse;
 import com.sandeep.application.repository.EmployeeRepository;
 import org.springframework.http.HttpMethod;
 import org.springframework.core.ParameterizedTypeReference;
@@ -40,60 +41,17 @@ return employeeRepository.findAll();
 
 /* other methods call starts */
 
-public List<EmployeeDetails> getEmployeeDetailsFromExternalService() {
+public List<EmployeeDetails> getEmployeeDetailsListFromExternalService() {
     // http://localhost:9090/api/employees-details/{empId} to be called with empId as path variable and also query params for pagination and sorting
     Map<String, Object> pathParams = new HashMap<>();
     pathParams.put("empId", "1");
     // pagination and sorting k params bhi add kr skte ho yaha
 
-// List<EmployeeDetails> employeeDetailsList = restClientService.sendRequest(
-//         "http://localhost:9090/api/employees-details/{empId}",
-//         HttpMethod.GET,
-//         null,
-//         null,
-//         pathParams,
-//         null,  //queryParams,
-//         new ParameterizedTypeReference<List<EmployeeDetails>>() {}
-// );
-// abhi response entity bnana he and proper serialize krna he 
 /*
-ek wrapper classs bnegi
-public class EmployeeDetailsResponse {
-    private List<EmployeeDetails> data;
+this String wala is the best way to check the reposne
+we can sop the the string so api response ko string me 
+convert karo and sop kr do and format check kro uske baad idr resonseobject class bnao.
 
-    and then ese serialize krna he
-    EmployeeDetailsResponse response = restClientService.sendRequest(
-        "http://localhost:9090/api/employees-details/{empId}",
-        HttpMethod.GET,
-        null,
-        headers,
-        pathParams,
-        null,
-        new ParameterizedTypeReference<EmployeeDetailsResponse>() {}
-);
-
-List<EmployeeDetails> list = response.getData();
-because 
-👉 Tum expect kar rahe ho:
-
-[
-  { "id": 1, "name": "A" },
-  { "id": 2, "name": "B" }
-]
-👉 But API actually return kar rahi hai:
-
-{
-  "data": [
-    { "id": 1, "name": "A" },
-    { "id": 2, "name": "B" }
-  ]
-}
-❌ Problem
-new ParameterizedTypeReference<List<EmployeeDetails>>() {}
-
-👉 Ye sirf array/list JSON ke liye hai
-❌ But tumhe mil raha hai object JSON
- */
 String response = restClientService.sendRequest(
         "http://localhost:9090/api/employees-details/{empId}",
         HttpMethod.GET,
@@ -104,6 +62,51 @@ String response = restClientService.sendRequest(
        new ParameterizedTypeReference<String>() {}
 );
     System.out.println("Employee details from external service: " + response);
-    return null; // or return employeeDetailsList;
+    // o/p : Employee details from external service: {"empId":"1","familyName":"satish","hike":20.0,"id":1}
+   return null; // or return employeeDetailsList;
+*/
+/*
+phle string me cast kr rahe the 
+bhi humne custom class bna liya EmployeeDetailsResponse accroding to response come 
+jisme List<EmployeeDetails> 
+data field hai to usme cast krna padega taki hume employee details ki list mil jaye 
+*/
+
+/*
+EmployeeDetailsResponse response = restClientService.sendRequest(
+        "http://localhost:9090/api/employees-details/{empId}",
+        HttpMethod.GET,
+        null,   // it will be for body 
+        null,  // it will be for header params
+        pathParams,
+        null,   // it will be for query params
+        new ParameterizedTypeReference<EmployeeDetailsResponse>() {}
+);
+System.out.println("Employee details from external service: " + response);
+
+List<EmployeeDetails> employeeDetailsList = response.getData();
+return employeeDetailsList;
+*/
+return null;
+}
+
+public EmployeeDetails getEmployeeDetailsFromExternalService() {
+Map<String, Object> pathParams = new HashMap<>();
+    pathParams.put("empId", "1");
+
+EmployeeDetails response = restClientService.sendRequest(
+        "http://localhost:9090/api/employees-details/{empId}",
+        HttpMethod.GET,
+        null,   // it will be for body 
+        null,  // it will be for header params
+        pathParams,
+        null,   // it will be for query params
+        new ParameterizedTypeReference<EmployeeDetails>() {}
+);
+System.out.println("Employee details from external service: " + response);
+
+
+return response;
+
 }
 }
