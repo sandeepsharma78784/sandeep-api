@@ -96,3 +96,6 @@ new ParameterizedTypeReference<List<EmployeeDetails>>() {}
  // abhi is baar exception handling krte he.
  ek api response naam ki clas bnayege and 
  ek proper response format bna k response ko uska data wale part me map kiya
+
+    // @GetMapping("/external", produces = "application/json") // is pr 406 aaya tha dont got the reason.
+

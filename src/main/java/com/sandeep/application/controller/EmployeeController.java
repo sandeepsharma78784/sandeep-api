@@ -54,7 +54,7 @@ public EmployeeController(EmployeeService employeeService) {
          return employeeService.getAllEmployees();
     } 
 
-    // @GetMapping("/external", produces = "application/json")
+    // @GetMapping("/external", produces = "application/json") // is pr 406 aaya tha dont got the reason.
     @GetMapping("/external")
     public ResponseEntity<APIResponseFormat<List<ThirdPartyUser>>> getAllThirdPartyUsers(){
         // call third party api
