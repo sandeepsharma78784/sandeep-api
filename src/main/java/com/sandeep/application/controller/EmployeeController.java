@@ -30,6 +30,9 @@ public EmployeeController(EmployeeService employeeService) {
     @GetMapping
     public List<Employee> getAllEmployees() {
         System.out.println("Fetching all employees");
+        employeeService.getEmployeeDetailsFromExternalService(); // just to test the external call
+        // testing k liye abhi is ms ki list call me dusri ms ki 
+        // getEmployeeDetails wala endpoint call kiya he
          return employeeService.getAllEmployees();
     } 
 }

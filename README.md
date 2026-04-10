@@ -15,3 +15,7 @@ to run the application
      bs app.properties me config de diya and related dependecy add kr di pom.xml ,
         is dependecy me vo db se interact krne ka code he
         jiska use hum jpa repository me krege.
+
+
+*****************************************************
+abhi hume dusri ms jo 9090 pr hosted he uska ek endpoint call kr k result print kr liya he and result sop me print krwa diya he 
