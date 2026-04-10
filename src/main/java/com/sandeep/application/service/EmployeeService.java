@@ -99,7 +99,7 @@ EmployeeDetails response = restClientService.sendRequest(
         HttpMethod.GET,
         null,   // it will be for body 
         null,  // it will be for header params
-        pathParams,
+        pathParams,// it will be for path params
         null,   // it will be for query params
         new ParameterizedTypeReference<EmployeeDetails>() {}
 );
