@@ -91,3 +91,8 @@ new ParameterizedTypeReference<List<EmployeeDetails>>() {}
 👉 Ye sirf array/list JSON ke liye hai
 ❌ But tumhe mil raha hai object JSON
  */
+
+
+ // abhi is baar exception handling krte he.
+ ek api response naam ki clas bnayege and 
+ ek proper response format bna k response ko uska data wale part me map kiya
