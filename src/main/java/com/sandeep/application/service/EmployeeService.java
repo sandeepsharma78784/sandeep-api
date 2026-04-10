@@ -13,6 +13,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.core.ParameterizedTypeReference;
 import com.sandeep.application.model.ThirdPartyUser;
 import java.util.Collections;
+import com.sandeep.application.genericexceptions.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 @Service
 public class EmployeeService {
 
@@ -114,22 +117,34 @@ return response;
 
 public List<ThirdPartyUser> getExternalUsers() {
 
-    List<ThirdPartyUser> users = restClientService.sendRequest(
-            "https://jsonplaceholder.typicode.com/users",
-            HttpMethod.GET,
-            null,
-            Collections.emptyMap(),   // headers
-            Collections.emptyMap(),   // path params
-            Collections.emptyMap(),   // query params
-            new ParameterizedTypeReference<List<ThirdPartyUser>>() {}
-    );
+try {
+            List<ThirdPartyUser> users = restClientService.sendRequest(
+                    // "https://jsonplaceholder.typicode.com/usenrs", to test 404 
+                    //  500 k liye db close kr do 
+                    "https://jsonplaceholder.typicode.com/users",
+                    HttpMethod.GET,
+                    null,
+                    Collections.emptyMap(),   // headers
+                    Collections.emptyMap(),   // path params
+                    Collections.emptyMap(),   // query params
+                    new ParameterizedTypeReference<List<ThirdPartyUser>>() {}
+            );
 
-    if(users != null) {
-        System.out.println("External users: " + users);
-        users.forEach(user -> System.out.println("User: " + user.getName() + ", Email: " + user.getEmail()));
-    } else {
-        System.out.println("Failed to fetch external users.");
-    }
-    return users != null ? users : Collections.emptyList();
+            if(users != null) {
+                System.out.println("External users: " + users);
+                users.forEach(user -> System.out.println("User: " + user.getName() + ", Email: " + user.getEmail()));
+            } else {
+                System.out.println("Failed to fetch external users.");
+            }
+            return users != null ? users : Collections.emptyList();
+    }catch (HttpClientErrorException.NotFound ex) {
+                throw new ResourceNotFoundException("External API: Resource not found");
+
+            } catch (HttpServerErrorException ex) {
+                throw new ExternalServiceException("External API is down");
+
+            } catch (Exception ex) {
+                throw new ExternalServiceException("Failed to fetch data from external API");
+            }
 }
 }
