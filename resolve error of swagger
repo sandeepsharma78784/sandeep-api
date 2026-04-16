@@ -1,0 +1,17 @@
+{"status":500,
+"message":"Handler dispatch failed: java.lang.NoSuchMethodError: 
+'void org.springframework.web.method.ControllerAdviceBean.<init>(java.lang.Object)'",
+"data":null,"error":"ServletException"}
+
+we were geting this issue while loading swagger ,
+because 
+<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            the highest version is  <version>2.6.0</version>
+which is supported by spring 3.2.5
+so we
+downgraded springboot version from 3.5.4 to 3.2.5 
+because we were facing the following error in swagger-ui  
+
+also for actual error we printed e.getmessage() not a hardcoded one.
+so we get java.lang.NoSuchMethodError: after this.

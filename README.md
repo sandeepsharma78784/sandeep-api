@@ -2,7 +2,8 @@ to run the application
 1. mvn clean package [while doing this make sure strong net connection , coz it will download jar mentioned in pom.xml] 
 2. then run java -jar target\application-0.0.1-SNAPSHOT.jar
 3. version used:
-    Spring Boot 3.5.4
+    <!-- Spring Boot 3.5.4 -->
+    Spring Boot 3.2.5  
     → Spring Framework 6.2.x
         Spring Boot 3.x ka rule:
         ❌ Java 8 / 11 NOT supported

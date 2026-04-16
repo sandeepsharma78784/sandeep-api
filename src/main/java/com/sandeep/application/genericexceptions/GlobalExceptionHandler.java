@@ -23,7 +23,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<APIResponseFormat<Object>> handleGeneric(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new APIResponseFormat<>(500, "Something went wrong", null, "Internal server error"));
+                // .body(new APIResponseFormat<>(500, "Something went wrong", null, "Internal server error"));
+                .body(new APIResponseFormat<>(500,ex.getMessage(), null, ex.getClass().getSimpleName()));
     }
 
     // External API failure
