@@ -1,9 +1,8 @@
-package com.sandeep.application.exception;
+package com.sandeep.application.genericexceptions;
 
 import com.sandeep.application.dto.APIResponseFormat;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import com.sandeep.application.genericexceptions.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
