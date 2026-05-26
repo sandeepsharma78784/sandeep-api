@@ -25,6 +25,8 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
          .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/actuator/**").permitAll()
+        // .requestMatchers("/actuator/health").permitAll()
             // .requestMatchers("/public/**").permitAll()
             // .requestMatchers("/api/**").authenticated()  //anyrequest.authenticated() conver kr lega explicitly likhne ki jarurat nhi hai.
              .requestMatchers("/public/**","/swagger-ui/**","/swagger-ui.html", "/v3/api-docs/**").permitAll()

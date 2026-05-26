@@ -15,3 +15,10 @@ because we were facing the following error in swagger-ui
 
 also for actual error we printed e.getmessage() not a hardcoded one.
 so we get java.lang.NoSuchMethodError: after this.
+
+| Spring Boot | Spring Framework | springdoc समर्थन     |
+| ----------- | ---------------- | -------------------- |
+| 3.2.x ✅     | 6.1.x            | ✅ Works perfectly    |
+| 3.3.x ⚠️    | 6.1.x+           | ⚠️ Mostly works      |
+| 3.4.x ⚠️    | 6.2.x            | ⚠️ Risky             |
+| 3.5.x ❌     | 6.2.x+           | ❌ Breaks (your case) |
