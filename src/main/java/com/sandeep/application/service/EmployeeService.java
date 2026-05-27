@@ -16,6 +16,10 @@ import java.util.Collections;
 import com.sandeep.application.genericexceptions.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
+
+// for circuitbreaker annotation
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 @Service
 public class EmployeeService {
 
@@ -95,10 +99,14 @@ return employeeDetailsList;
 return null;
 }
 
+@Retry(name = "employeeRetry",fallbackMethod = "fallbackEmployee")
+@CircuitBreaker(
+    name = "employeeServiceCB"
+    
+)
 public EmployeeDetails getEmployeeDetailsFromExternalService() {
 Map<String, Object> pathParams = new HashMap<>();
     pathParams.put("empId", "1");
-
 EmployeeDetails response = restClientService.sendRequest(
         "http://localhost:9090/api/employees-details/{empId}",
         HttpMethod.GET,
@@ -113,6 +121,15 @@ System.out.println("Employee details from external service: " + response);
 
 return response;
 
+}
+
+
+public EmployeeDetails fallbackEmployee(Exception ex) {
+
+        System.out.println("Fallback executed");
+
+        return new EmployeeDetails();
+        // return "Service temporarily unavailable";
 }
 
 public List<ThirdPartyUser> getExternalUsers() {

@@ -1,5 +1,6 @@
 package com.sandeep.application.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -50,6 +51,9 @@ public EmployeeController(EmployeeService employeeService) {
        EmployeeDetails employeeDetails = employeeService.getEmployeeDetailsFromExternalService();
        System.out.println("Fetched Employee Details: " + employeeDetails.getEmpId() + ", " + employeeDetails.getFamilyName() + ", " + employeeDetails.getHike());
         
+       if(employeeDetails.getEmpId()==null){
+        return Collections.emptyList();
+       }
         
          return employeeService.getAllEmployees();
     } 

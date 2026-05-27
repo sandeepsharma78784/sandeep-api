@@ -1,25 +1,58 @@
+server:
+  port: 8080
+
 spring:
+  application:
+    name: employee-service
+
   security:
     oauth2:
-      resourceServer:
+      resourceserver:
         jwt:
           issuer-uri: https://dev-sandeep-secure.us.auth0.com/
-          audience: https://sandeep-secure-resource-endpoint/    
+          audience: https://sandeep-secure-resource-endpoint/
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,circuitbreakers,circuitbreakerevents,retryevents,metrics,retires
 
+  endpoint:
+    health:
+      show-details: always
 
-      # Uncomment the following section to enable OAuth2 client configuration
-      # client:
-      #   registration:
-      #     google:
-      #       client-id: your-google-client-id
-      #       client-secret: your-google-client-secret
-      #       scope:
-      #         - email
-      #         - profile
-      #   provider:
-      #     google:
-      #       authorization-uri: https://accounts.google.com/o/oauth2/auth
-      #       token-uri: https://oauth2.googleapis.com/token
-      #       user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
-      #       user-name-attribute: sub
+resilience4j:
+
+  circuitbreaker:
+    instances:
+      employeeServiceCB:
+
+        failureRateThreshold: 50
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 3
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 2
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+        recordExceptions:
+          - java.lang.Exception
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+
+        ignoreExceptions:
+          - java.lang.IllegalArgumentException
+  retry:
+    instances:
+      employeeRetry:
+        maxAttempts: 3
+        waitDuration: 2s
+        retryExceptions:
+          - java.lang.RuntimeException
+          - org.springframework.web.client.ResourceAccessException
+        ignoreExceptions:
+          - java.lang.IllegalArgumentException
+  timelimiter:
+    instances:
+      employeeServiceCB:
+        timeoutDuration: 3s
